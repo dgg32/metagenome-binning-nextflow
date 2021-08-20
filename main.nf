@@ -1,5 +1,6 @@
 
-
+//reads: 's3://nextflow-tower-sixing-asset/raw/*_R{1,2}.fastq.gz'
+//reads: '/fsx/work/raw/*_R{1,2}.fastq.gz'
 //nextflow run main.nf --reads '/home/sih13/Downloads/fastq/*_R{1,2}.fastq.gz'
 
 params.reads = "$baseDir/data/*_R{1,2}.fastq.gz"
@@ -27,7 +28,7 @@ process fastp {
     """
     fastp -i ${reads[0]} -I ${reads[1]} \
     -o ${sample_id}_trim_R1.fastq.gz -O ${sample_id}_trim_R2.fastq.gz \
-    --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100
+    --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100 -w 32
     """
 }
 
@@ -46,7 +47,7 @@ process megahit {
 
     script:
     """
-    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}_megahitout -t 8
+    megahit -1 ${reads[0]} -2 ${reads[1]} -o ${sample_id}_megahitout -t 32
     """
 }
 
@@ -67,7 +68,7 @@ process maxbin {
     """
     mkdir ${sample_id}_maxbinout
 
-    run_MaxBin.pl -contig ${megathitout}/final.contigs.fa -out ${sample_id}_maxbinout/maxbin  -reads ${reads[0]} -reads2 ${reads[1]} -thread 8 -min_contig_length 200
+    run_MaxBin.pl -contig ${megathitout}/final.contigs.fa -out ${sample_id}_maxbinout/maxbin  -reads ${reads[0]} -reads2 ${reads[1]} -thread 32 -min_contig_length 200
     """
 }
 
@@ -86,6 +87,6 @@ process checkm {
 
     script:
     """
-    checkm lineage_wf -t 8 -x fasta $maxbinout ${sample_id}_checkmout
+    checkm lineage_wf -t 32 -x fasta $maxbinout ${sample_id}_checkmout
     """
 }
