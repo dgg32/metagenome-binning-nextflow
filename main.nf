@@ -26,6 +26,10 @@ process fastp {
 
     script:
     """
+    /home/ec2-user/miniconda/bin/aws --version
+
+    ls
+
     fastp -i ${reads[0]} -I ${reads[1]} \
     -o ${sample_id}_trim_R1.fastq.gz -O ${sample_id}_trim_R2.fastq.gz \
     --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100 -w 32
