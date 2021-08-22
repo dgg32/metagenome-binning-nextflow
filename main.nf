@@ -60,7 +60,7 @@ process maxbin {
 
     publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
 
-    container = 'pegi3s/maxbin2'
+    container = 'nanozoo/maxbin2'
 
     input:
     tuple sample_id, path(megathitout), file(reads) from megahit_result_ch
