@@ -3,6 +3,7 @@
 //reads: '/fsx/work/raw/*_R{1,2}.fastq.gz'
 //nextflow run main.nf --reads '/home/sih13/Downloads/fastq/*_R{1,2}.fastq.gz'
 
+params.threads = 16
 params.reads = "$baseDir/data/*_R{1,2}.fastq.gz"
 params.outdir = 'results'
 
