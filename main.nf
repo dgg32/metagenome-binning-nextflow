@@ -77,7 +77,6 @@ process maxbin {
 }
 
 process checkm {
-    memory '60 GB'
 
     publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
 
