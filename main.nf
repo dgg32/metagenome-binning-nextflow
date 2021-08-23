@@ -13,7 +13,7 @@ Channel.fromFilePairs(params.reads, checkIfExists: true).set{ read_pairs }  //re
 
 process fastp {
 
-    //publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
+    publishDir params.outdir, mode: 'copy' 
 
     container "dgg32/fastp"
 
@@ -34,7 +34,7 @@ process fastp {
 
 process megahit {
 
-    publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
+    publishDir params.outdir, mode: 'copy' 
 
     container = 'dgg32/megahit'
 
@@ -52,7 +52,7 @@ process megahit {
 
 process maxbin {
 
-    publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
+    publishDir params.outdir, mode: 'copy'
 
     container = 'nanozoo/maxbin2'
 
@@ -72,7 +72,7 @@ process maxbin {
 
 process checkm {
 
-    publishDir params.outdir, mode: 'copy' // publish only trimmed fastq files 
+    publishDir params.outdir, mode: 'copy'
 
     container = 'dgg32/checkm'
 
