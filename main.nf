@@ -1,6 +1,4 @@
-
 //reads: 's3://nextflow-tower-sixing-asset/raw/*_R{1,2}.fastq.gz'
-//reads: '/fsx/work/raw/*_R{1,2}.fastq.gz'
 //nextflow run main.nf --reads '/home/sih13/Downloads/fastq/*_R{1,2}.fastq.gz'
 
 params.threads = 16
@@ -24,10 +22,6 @@ process fastp {
 
     output:
     tuple sample_id, file('*.fastq.gz') into fastp_out_ch
-
-    //fastp -i ${reads[0]} -I ${reads[1]} \
-    //-o ${sample_id}_trim_R1.fastq.gz -O ${sample_id}_trim_R2.fastq.gz \
-    //--adapter_sequence=AGATCGGAAGAGCACACGTCTGAACTCCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -g --detect_adapter_for_pe -l 100 -w 32
 
     script:
     """
