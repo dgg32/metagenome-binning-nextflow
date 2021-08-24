@@ -2,7 +2,7 @@
 //nextflow run main.nf --reads '/home/sih13/Downloads/fastq/*_R{1,2}.fastq.gz'
 
 params.threads = 16
-params.reads = "$baseDir/data/*_R{1,2}.fastq.gz"
+params.reads = "$baseDir/data/*_R{1,2}.f*q.gz"
 params.outdir = 'results'
 
 println "BINNING   PIPELINE    "
